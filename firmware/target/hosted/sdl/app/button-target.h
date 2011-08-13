@@ -31,7 +31,7 @@
 bool button_hold(void);
 */
 void button_init_device(void);
-#ifdef HAVE_BUTTON_DATA
+#if defined(HAVE_BUTTON_DATA) && defined(HAVE_TOUCHSCREEN)
 int button_read_device(int *data);
 #else
 int button_read_device(void);

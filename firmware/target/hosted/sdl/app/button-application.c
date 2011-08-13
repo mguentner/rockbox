@@ -50,7 +50,7 @@ int key_to_button(int keyboard_key)
         case SDLK_LEFT:
             new_btn = BUTTON_MIDLEFT;
             break;
-#if (CONFIG_PLATFORM & PLATFORM_MAEMO|PLATFORM_PANDORA)
+#if (CONFIG_PLATFORM & PLATFORM_MAEMO|PLATFORM_PANDORA|PLATFORM_YPR0)
         case SDLK_RETURN:
         case SDLK_KP_ENTER:
 #endif

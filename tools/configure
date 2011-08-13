@@ -644,6 +644,33 @@ pandoracc () {
  GCCOPTS="$GCCOPTS -ffast-math -fsingle-precision-constant"
 }
 
+ypr0cc () {
+
+ YPR0SDK="/usr/arm-none-linux-gnueabi"
+ PATH=$YPR0SDK/bin:$PATH:
+ YPR0SDK_BIN="/usr/bin"
+ PATHTOSDL="/home/beowulf/Projekte/YP-R0/NewFWs/sdl_port/install"
+ LDOPTS="-L$YPR0SDK/lib -Wl,-rpath,$YPR0SDK/lib $LDOPTS -L $PATHTOSDL/lib"
+ GCCOPTS=`echo $CCOPTS | sed -e s/-ffreestanding// -e s/-nostdlib// -e s/-Wundef//`
+ CCOPTS="$GCCOPTS -fno-builtin -g"
+ GCCOPTIMIZE=''
+ LDOPTS="-lSDL -lpthread -lm -ldl $LDOPTS"
+ GLOBAL_LDOPTS="$GLOBAL_LDOPTS -Wl,-z,defs"
+ SHARED_LDFLAG="-shared"
+ SHARED_CFLAGS=''
+ endian="little"
+ thread_support="HAVE_SIGALTSTACK_THREADS"
+
+ # Include path
+ GCCOPTS="-std=gnu99 -I$YPR0SDK/include -I$PATHTOSDL/include/SDL/  -D_GNU_SOURCE=1 -D_REENTRANT"
+
+ # Set up compiler
+ gccchoice="4.2.0"
+ prefixtools "$YPR0SDK_BIN/arm-none-linux-gnueabi-"
+ HOSTCC=$(which gcc) 
+ HOSTAR=$(which ar) 
+}
+
 androidcc () {
     if [ -z "$ANDROID_SDK_PATH" ]; then
         echo "ERROR: You need the Android SDK installed and have the ANDROID_SDK_PATH"
@@ -1290,6 +1317,7 @@ cat <<EOF
  202) Nokia N8xx
  203) Nokia N900          ==ROCKCHIP==
  204) Pandora             180) rk27xx generic
+ 205) YP-R0
 
 EOF
 
@@ -3142,6 +3170,35 @@ fi
     t_manufacturer="pandora"
     t_model="app"
     ;;
+
+   205|ypr0)
+    application="yes"
+    target_id=78
+    modelname="ypr0"
+    app_type="sdl-app"
+    target="-DYPR0"
+    sharedir="rockbox/share/rockbox"
+    bindir="rockbox/bin"
+    libdir="rockbox/lib"
+    memory=16
+    uname=`uname`
+    ypr0cc
+    tool="cp "
+    boottool="cp "
+    bmp2rb_mono="$rootdir/tools/bmp2rb -f 0"
+    bmp2rb_native="$rootdir/tools/bmp2rb -f 4"
+    output="rockbox"
+    bootoutput="rockbox"
+    appextra="recorder:gui:radio"
+    plugins="yes"
+    swcodec="yes"
+    # architecture, manufacturer and model for the target-tree build
+    t_cpu="hosted"
+    t_manufacturer="sdl"
+    t_model="app"
+    ;;
+
+
 
    *)
     echo "Please select a supported target platform!"

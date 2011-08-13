@@ -137,7 +137,7 @@ static int sdl_event_thread(void * param)
         panicf("%s", SDL_GetError());
     }
 
-#if (CONFIG_PLATFORM & (PLATFORM_MAEMO|PLATFORM_PANDORA))
+#if (CONFIG_PLATFORM & (PLATFORM_MAEMO|PLATFORM_PANDORA|PLATFORM_YPR0))
     /* SDL touch screen fix: Work around a SDL assumption that returns
        relative mouse coordinates when you get to the screen edges
        using the touchscreen and a disabled mouse cursor.
@@ -181,7 +181,7 @@ static int sdl_event_thread(void * param)
     SDL_WaitThread(maemo_thread, NULL);
 #endif
 
-#if (CONFIG_PLATFORM & (PLATFORM_MAEMO|PLATFORM_PANDORA))
+#if (CONFIG_PLATFORM & (PLATFORM_MAEMO|PLATFORM_PANDORA|PLATFORM_YPR0))
     SDL_FreeCursor(hiddenCursor);
 #endif
 

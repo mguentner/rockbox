@@ -125,7 +125,7 @@
 #define MAIN_NORETURN_ATTR
 #endif
 
-#if (CONFIG_PLATFORM & (PLATFORM_SDL|PLATFORM_MAEMO|PLATFORM_PANDORA))
+#if (CONFIG_PLATFORM & (PLATFORM_SDL|PLATFORM_MAEMO|PLATFORM_PANDORA|PLATFORM_YPR0))
 #include "sim_tasks.h"
 #include "system-sdl.h"
 #define HAVE_ARGV_MAIN
@@ -352,7 +352,7 @@ static void init(void)
     button_init();
     powermgmt_init();
     backlight_init();
-#if (CONFIG_PLATFORM & (PLATFORM_SDL|PLATFORM_MAEMO|PLATFORM_PANDORA))
+#if (CONFIG_PLATFORM & (PLATFORM_SDL|PLATFORM_MAEMO|PLATFORM_PANDORA|PLATFORM_YPR0))
     sim_tasks_init();
 #endif
 #if (CONFIG_PLATFORM & PLATFORM_ANDROID)

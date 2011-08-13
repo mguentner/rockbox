@@ -89,6 +89,7 @@
 #define PLATFORM_MAEMO5  (1<<5)
 #define PLATFORM_MAEMO   (PLATFORM_MAEMO4|PLATFORM_MAEMO5)
 #define PLATFORM_PANDORA (1<<6)
+#define PLATFORM_YPR0    (1<<7)
 
 /* CONFIG_KEYPAD */
 #define PLAYER_PAD          1
@@ -464,6 +465,8 @@ Lyre prototype 1 */
 #include "config/nokian900.h"
 #elif defined(PANDORA)
 #include "config/pandora.h"
+#elif defined(YPR0)
+#include "config/ypr0.h"
 #else
 /* no known platform */
 #endif
@@ -528,7 +531,7 @@ Lyre prototype 1 */
 
 /* define for all cpus from ARM family */
 #if ((CONFIG_PLATFORM & PLATFORM_MAEMO5) && defined(MAEMO_ARM_BUILD)) \
-  || (CONFIG_PLATFORM & PLATFORM_PANDORA)
+  || (CONFIG_PLATFORM & PLATFORM_PANDORA) 
 #define CPU_ARM
 #define ARM_ARCH 7 /* ARMv7 */
 
